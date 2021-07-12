@@ -4,12 +4,15 @@ import time
 
 import sys, argparse
 
+
 # read file name from cmd param
 parser = argparse.ArgumentParser()
+
 parser.add_argument("Input", help = "Pass in a file.")
 parser.add_argument( "-o", "--Output", 
                      help = "Save result to file. A file name is optional.", 
                      nargs= '?', const= f'Output-{time.time()}.csv')
+
 args = parser.parse_args()
 
 # file names
@@ -17,10 +20,8 @@ in_file = args.Input
 out_file = args.Output
 
 
-
 # read in file
 df = pd.read_csv(in_file, header= None)
-
 
 # remove file name row
 orig_header, df = df.iloc[:2], df.iloc[2:]
@@ -33,16 +34,14 @@ df.rename(columns= {0:'Heading', 1:'Item', 2:'Value'}, inplace= True)
 # split by heading
 df['Heading'].fillna('', inplace= True)
 heading_idx = df.loc[df['Heading'].str.contains('Heading')].index
+
 splits = []
-
 for idx, sect  in enumerate(heading_idx):
-
     try:
         temp = df.iloc[sect: heading_idx[idx + 1]].copy()
 
     except:
         temp = df.iloc[sect: ].copy()
-
 
     # add total
     temp.reset_index(drop= True, inplace= True)
