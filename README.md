@@ -12,7 +12,7 @@ Finding sum of values in each section and the total sum of all values
 > Eg. `python assignment9.py sample-data.csv -o out.csv`.
 
 3. **Help.**
-> Run the command `python assignment9.py -h` for assistance.
+> Run the command `python assignment9.py -h` for help.
 
 
 
